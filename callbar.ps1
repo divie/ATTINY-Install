@@ -1,14 +1,4 @@
-#This minimizes the window breifly after start
-$Win32ShowWindowAsync = Add-Type -memberDefinition @"
-[DllImport("user32.dll")]
-public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
-"@ -name "Win32ShowWindowAsync" -namespace Win32Functions -passThru
-
-$s = Get-Process -Name "callbar-install"
-$Win32ShowWindowAsync::ShowWindowAsync($s.MainWindowHandle, 6)
-
 #This Creates the credentials to be used
-$user = $env:UserName
 $encpasswd = "IT1access" | ConvertTo-SecureString -AsPlainText -Force
 $cred = new-object System.Management.AUtomation.PSCredential -ArgumentList '.\administrator',$encpasswd
 
